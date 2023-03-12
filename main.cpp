@@ -1,17 +1,25 @@
 #include<iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 void msgBemVindo();
 string dadosPlayer();
 int dificuldade();
+int sorteiaNumero(int dificuldade);
+void limparTela();
 
 int main()
 {
     msgBemVindo();
     dadosPlayer();
-    dificuldade();
+    int dificuladade = dificuldade();
+    int maximoNumero = sorteiaNumero(dificuladade);
 
+    limparTela();
+    cout << dificuladade << endl;
+    cout << maximoNumero << endl;
 }
 
 void msgBemVindo()
@@ -42,7 +50,37 @@ int dificuldade()
         cout << "Por favor digite o numero certo!!!!!" << endl;
         cin >> dificuldade;
     }
-    
-    cout << dificuldade << endl;
+
     return dificuldade; 
 }
+
+int sorteiaNumero(int dificuldade){
+    int maximoNumeros = 0;
+    switch (dificuldade)
+    {
+    case 1:
+        maximoNumeros = 20;
+        break;
+    case 2:
+        maximoNumeros = 50;
+        break;
+    case 3:
+        maximoNumeros = 100;
+    default:
+        break;
+    }
+
+    cout << "sorteando um numero secreto entre 1 e " << maximoNumeros << endl;
+    unsigned seed = time(0);
+
+    srand(seed);
+    int numeroSortado = 1 + rand() % maximoNumeros;
+    return numeroSortado;
+}
+
+void limparTela()
+{
+    cout << "\e[H\e[2J";
+}
+
+
